@@ -30,3 +30,22 @@ Route::get('/blog', function () {
 Route::get('/blog/article', function () {
     return view('article');
 })->name('article');
+
+
+
+//Админка
+//Auth::routes();
+
+//Переопределяем стандартные роуты!!!!!!!!!!! переделать стандартные маршруты
+
+
+Route::group(['middleware' => ['web']], function() {
+	// Login Routes
+	Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
+    Route::post('login', ['as' => 'login.post', 'uses' => 'Auth\LoginController@login']);
+    Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
+});
+
+
+
+Route::get('/admin', 'AdminController@index')->name('admin');
